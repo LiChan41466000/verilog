@@ -1,0 +1,21 @@
+module adder_structure_reg (s, co, a, b, ci,clk);
+parameter width = 32;
+output [width-1:0] s;
+output co;
+input [width-1:0] a, b;
+input ci;
+wire c1,c2,c3,c4,c5,c6,c7,co_;
+wire [31:0]s_;
+input clk;
+	FA4 fa1(s_[3:0],c1,a[3:0],b[3:0],ci);
+	FA4 fa2(s_[7:4],c2,a[7:4],b[7:4],c1);
+	FA4 fa3(s_[11:8],c3,a[11:8],b[11:8],c2);
+	FA4 fa4(s_[15:12],c4,a[15:12],b[15:12],c3);
+	FA4 fa5(s_[19:16],c5,a[19:16],b[19:16],c4);
+	FA4 fa6(s_[23:20],c6,a[23:20],b[23:20],c5);
+	FA4 fa7(s_[27:24],c7,a[27:24],b[27:24],c6);
+	FA4 fa8(s_[31:28],co_,a[31:28],b[31:28],c7);
+	D_FF32 dff(s,s_,clk);
+	D_FF dff2(co,co_,clk);
+endmodule
+	
