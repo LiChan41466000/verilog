@@ -1,0 +1,8 @@
+module D_FF32 (q, d, clk);
+output [31:0]q; 
+input [31:0]d;
+input clk; 
+reg [31:0]q;
+always @( posedge clk)
+ q <= d;
+endmodule
