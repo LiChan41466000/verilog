@@ -1,0 +1,55 @@
+`timescale 10ns/1ns
+
+module testbench();
+wire [31:0]S1,S2,S3,S4,S5,S6;
+wire Cout1,Cout2,Cout3,Cout4,Cout5,Cout6;
+reg[31:0]A,B;
+reg clk,cin;
+
+adder_structure add1(.s(S1),.CO(Cout1),.a(A),.b(B),.ci(cin));
+adder_structure_reg add2(.s(S2),.CO(Cout2),.a(A),.b(B),.ci(cin),.clk(clk);
+adder_dataflow add3(.s(S3),.CO(Cout3),.a(A),.b(B),.ci(cin));
+adder_dataflow_reg add4(.s(S4),.CO(Cout4),.a(A),.b(B),.ci(cin),.clk(clk);
+adder_behavior add5(.s(S4),.CO(Cout4),.a(A),.b(B),.ci(cin));
+adder_behavior_reg  add6(.s(S6),.CO(Cout6),.a(A),.b(B),.ci(cin),.clk(clk);
+
+
+always begin
+	clk<=1;
+	#5;
+	clk<=~clk;
+	#5;
+end
+	
+initial 
+begin
+	$display ("==============================");
+	$display ("==                          ==");
+	$display ("==        test start        ==");
+	$display ("==                          ==");
+	$display ("==============================");
+end
+
+initial 
+repeat(10) 
+begin
+  a<=$random;b<=$random;cin<=$random;
+#10;
+end
+
+initial
+begin
+	#1;
+		repeat(10) 
+		begin
+		if(({Cout1,S1}==(A+B+s1))&&({Cout2,S2}==(A+B+s2))&&({Cout3,S3}==(A+B+s4))&&({Cout4,S4}==(A+B+s4))&&({Cout5,S5}==(A+B+s5))&&({Cout6,S6}==(A+B+s6))
+		$display(\"correct);
+		end
+	#10;
+end
+
+initial begin
+#120 $finish;
+end
+
+endmodule
